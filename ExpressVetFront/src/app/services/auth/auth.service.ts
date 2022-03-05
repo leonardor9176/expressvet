@@ -51,6 +51,10 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = sessionStorage.getItem('token') as string
+    if(this.jwtHelper.isTokenExpired(token)){
+      sessionStorage.removeItem('id')
+      sessionStorage.removeItem('token')
+    }
     return !this.jwtHelper.isTokenExpired(token)
   }
 

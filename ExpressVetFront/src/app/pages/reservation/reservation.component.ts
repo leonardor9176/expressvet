@@ -93,7 +93,7 @@ export class ReservationComponent implements OnInit {
       this.reservationService.createReservation(reservation).subscribe((res: any) => {
         this.reservationSuccess = res?.status
         this.noAvailableToReserv = !res?.available
-        this.currentUuid = res.data[0].uuid
+        this.currentUuid = res?.data? res?.data[0].uuid : ''
         this.openConfirm()
       })
     }

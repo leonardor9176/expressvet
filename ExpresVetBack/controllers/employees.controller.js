@@ -60,31 +60,4 @@ employeesCtrl.validateLogin = async (req, res) => {
     }
 }
 
-employeesCtrl.validateToken = async (req, res) => {
-
-    try {
-        if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
-            const employee = jwt.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPIs')
-            console.log(employee)
-            res.json({
-                status: true,
-                data: [{
-                        id: employee._id
-                }]
-            })
-        } else {
-            res.json({
-                status: false,
-                error: 'parametros invalidos'
-            })
-        }
-    }
-    catch (error) {
-        res.json({
-            status: false,
-            error: error
-        })
-    }
-}
-
 module.exports = employeesCtrl

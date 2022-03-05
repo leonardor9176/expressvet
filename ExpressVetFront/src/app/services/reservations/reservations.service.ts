@@ -19,6 +19,11 @@ export class ReservationsService {
     return this.http.post(`${this.URL_API}/api/reservations/create`, body)
   }
 
+  getReservations(token: any) {
+    const headers = { authorization: `JWT ${token}`}
+    return this.http.get(`${this.URL_API}/api/reservations/`, {headers: headers})
+  }
+  
   searchReservation(uuid: string) {
     return this.http.get(`${this.URL_API}/api/reservations/search?uuid=${uuid}`)
   }

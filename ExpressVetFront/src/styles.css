@@ -1,0 +1,85 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+:root{
+    --bondiBlue: #009DAE;
+    --bondiBlueLg: #20cbc7;
+    --turquoiseBlue: #71DFE7;
+    --paleTurquoise: #C2FFF9;
+    --parisDaisy: #FFE652;
+
+}
+*{
+    font-style: initial;
+    font-size: initial;
+    font-stretch: initial;
+    font-weight: initial;
+    line-height: initial;
+}
+
+.bg-col-bondiBlue{
+    background-color: var(--bondiBlue);
+}
+
+.bg-col-bondiBlueLg{
+    background-color: var(--bondiBlueLg);
+}
+
+.bg-col-turquoiseBlue{
+    background-color: var(--turquoiseBlue);
+}
+
+.bg-col-paleTurquoise{
+    background-color: var(--paleTurquoise);
+}
+
+.bg-col-parisDaisy{
+    background-color: var(--parisDaisy);
+}
+
+.full-height{
+    height: calc(100vh - 80px);
+}
+
+.align-center{
+    display: flex;
+    align-items: center;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.ts-12{
+    font-size: 12px;
+}
+.ts-16{
+    font-size: 16px;
+}
+.ts-20{
+    font-size: 20px;
+}
+.ts-24{
+    font-size: 24px;
+}
+.ts-28{
+    font-size: 28px;
+}
+.ts-32{
+    font-size: 32px;
+}
+.ts-36{
+    font-size: 36px;
+}
+.ts-40{
+    font-size: 40px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.hide{
+    display: none;
+}
+
+/* html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */

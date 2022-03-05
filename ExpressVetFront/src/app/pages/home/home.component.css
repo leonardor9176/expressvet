@@ -1,0 +1,24 @@
+.img-cont>img{
+    float: right;
+}
+
+.float-text{
+    position: absolute;
+    margin-top: 30px;
+    width: inherit;
+}
+
+.float-text>h5{
+}
+
+.float-text>h3{
+}
+
+.btn-reserv{
+    margin: 15px;
+    text-align: center;
+}
+
+.btn-reserv>button{
+    width: 48%;
+}

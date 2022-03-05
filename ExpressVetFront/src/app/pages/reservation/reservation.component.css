@@ -1,0 +1,54 @@
+.reservation-section{
+    /* background-color: var(--bondiBlueLg); */
+}
+
+.reservation-section-head{
+    margin: 0px;
+}
+
+.reservation-section-head:hover{
+    background-color: var(--bondiBlue);
+}
+
+.reservation-section-head>a{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.reservation-section-body{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.img-cont{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+    height: 100%;
+}
+
+.img-cont>img{
+    /* height: 100%; */
+    display: block;
+    max-height:100%;
+    width: auto; 
+    height: auto;
+}
+
+.reservation-info{
+    padding-top: 40px;
+}
+
+form>mat-form-field{
+    width: 100%;
+}
+
+.dialog{
+    max-width: 500px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+}

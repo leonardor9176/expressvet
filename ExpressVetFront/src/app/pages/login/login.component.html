@@ -1,0 +1,30 @@
+<div class="bg-col-paleTurquoise full-height">
+    <div class="container bg-col-turquoiseBlue full-height">
+        <div class="row">
+            <h1>Ingreso de Empleados</h1>
+            <div class="col-6">
+                <div class="img-cont">
+                    <img src="../../../assets/image48.png">
+                </div>
+            </div>
+            <div class="col-6 align-center">
+                <form id="login-form">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput name="user"  [(ngModel)]="user">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput type="password" name="password"  [(ngModel)]="password">
+                    </mat-form-field>
+
+                    <div class="btn-cont">
+                        <button class="btn btn-primary" type="button" (click)="login()">Ingresar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

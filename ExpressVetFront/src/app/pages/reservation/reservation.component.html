@@ -1,0 +1,164 @@
+<div id="reservation-cont" class="bg-col-paleTurquoise full-height">
+    <div class="container bg-col-turquoiseBlue full-height">
+        <section class="reservation-section row">
+            <div class="row reservation-section-head pointer"
+                [ngClass]="hideNewReservation? 'bg-col-bondiBlueLg': 'bg-col-bondiBlue'" (click)="clicNewReservation()">
+                <a><span class="material-icons">add</span> <span class="ts-32"> Agendar una cita </span></a>
+            </div>
+            <div class="row reservation-section-body" [ngClass]="{ 'hide': hideNewReservation }">
+                <div class="col-6">
+                    <div class="img-cont">
+                        <img src="../../../assets/image62.png">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div>
+                        <form id="new-reservation-form" [formGroup]="reservationForm">
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nombre</mat-label>
+                                <input matInput name="name" formControlName="name">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Documento</mat-label>
+                                <input matInput name="document" formControlName="document">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Fecha y hora deseada</mat-label>
+                                <input matInput name="datetime" type="text" onfocus="(this.type='datetime-local')"
+                                    onblur="if(!this.value)this.type='text'" formControlName="reservationDate">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Cescripción del caso</mat-label>
+                                <textarea matInput name="description" rows="5" formControlName="description"></textarea>
+                            </mat-form-field>
+
+                            <div>
+                                <button class="btn btn-primary w-100" (click)="validate()">Reservar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="reservation-section row">
+            <div class="row reservation-section-head pointer"
+                [ngClass]="hideAdminReservation? 'bg-col-bondiBlueLg': 'bg-col-bondiBlue'"
+                (click)="clicAdminReservation()">
+                <a><span class="material-icons">add</span> <span class="ts-32"> Administrar una cita </span></a>
+            </div>
+            <div class="row reservation-section-body" [ngClass]="{ 'hide': hideAdminReservation }">
+                <div class="col-6">
+                    <div class="img-cont">
+                        <img src="../../../assets/image20.png">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <form id="search-reservation-form">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Identificador de la reserva </mat-label>
+                                <input matInput name="reservation-id" maxlength="36" [(ngModel)]="reservationId">
+                            </mat-form-field>
+                            <div>
+                                <button class="btn btn-primary w-100" (click)="clickSearchReservation()"
+                                    [disabled]="reservationId.length != 36">Buscar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row reservation-info" *ngIf="reservationInfo">
+                        <p>
+                            <span class="ts-20 bold">Nombre del Solicitante: </span><span
+                                class="ts-20 text-capitalize">{{reservationInfo?.name}}</span>
+                        </p>
+                        <p>
+                            <span class="ts-20 bold">Fecha de la Cita: </span><span
+                                class="ts-20">{{reservationInfo?.reservationDate}}</span>
+                        </p>
+                        <p>
+                            <span class="ts-20 bold">Estado de la Cita: </span><span
+                                class="ts-20 text-capitalize">{{reservationInfo?.status}}</span>
+                        </p>
+                        <p>
+                            <span class="ts-20 bold">Descripción: </span><span
+                                class="ts-20">{{reservationInfo?.description}}</span>
+                        </p>
+                        <div>
+                            <button class="btn btn-danger w-100" (click)="openCancel()" [disabled]="reservationInfo?.status == 'cancelada'">Cancelar Cita</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<ng-template #confirmReservation>
+    <div class="dialog">
+        <p class="ts-32 bold">Reserva de Citas</p>
+
+        <div *ngIf="reservationSuccess; else reservationFail">
+            <p class="ts-20">La cita fue reservada satisfactoriamente.</p>
+            <p class="ts-20 text-center"><span class="material-icons">sentiment_very_satisfied</span></p>
+            <p class="ts-20">El <span class="ts-20 bold">Identificador</span> para <span class="ts-20 bold">consultar</span> o <span class="ts-20 bold">administrar</span> tu reserva es:</p>
+            <p class="ts-24 bold">{{currentUuid}}</p>
+        </div>
+        <ng-template #reservationFail>
+            <p class="ts-20">Lo sentimos, la cita <span class="bold">NO</span> pudo ser reservada.</p>
+            <p class="ts-20" *ngIf="noAvailableToReserv">No hay disponibilidad para agendar a la hora solicitada.</p>
+            <p class="ts-24" *ngIf="noAvailableToReserv">Por favor intenta reservar en una franja diferente.</p>
+        </ng-template>
+
+        <div>
+            <button class="btn btn-primary w-100" (click)="closeDialog()">Cerrar</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #cancelDialog>
+    <div class="dialog">
+        <p class="ts-32 bold">Cancelación de Citas</p>
+        <p class="ts-20">Esta operación cancelará la cita seleccionada.</p>
+        <form id="cancel-reservation-form">
+            <p class="ts-20">Por favor, dinos el motivo de la cancelación:</p>
+            <mat-form-field appearance="outline">
+                <mat-label>Motivo de cancelación</mat-label>
+                <textarea matInput name="cancel-reason" rows="5" [(ngModel)]="cancelReason"></textarea>
+            </mat-form-field>
+            <p class="ts-20">Para confirmar la cancelación ingresa el documento del solicitante ingresado al realizar la
+                reserva.</p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Documento</mat-label>
+                    <input matInput name="document-cancelation" [(ngModel)]="documentCancelation">
+                </mat-form-field>
+            <div>
+                <button class="btn btn-danger w-100" (click)="cancelReservation()"
+                    [disabled]="documentCancelation.length < 3 || cancelReason.length < 5">Cancelar Cita</button>
+            </div>
+            <div>
+                <button class="btn btn-primary w-100" (click)="closeDialog()">Salir Sin Cancelar</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #confirmCancelDialog>
+    <div class="dialog">
+        <p class="ts-32 bold">Cancelación de Citas</p>
+
+        <div *ngIf="cancelSuccess; else cancelFail">
+            <p class="ts-20">La cita fue cancelada satisfactoriamente.</p>
+        </div>
+        <ng-template #cancelFail>
+            <p class="ts-20">Lo sentimos, la cita <span class="bold">NO</span> pudo ser cancelada.</p>
+            <p class="ts-20" *ngIf="documentCancelationWrong">El documento ingresado no corresponde con el registrado.</p>
+        </ng-template>
+
+        <div>
+            <button class="btn btn-primary w-100" (click)="closeDialog()">Cerrar</button>
+        </div>
+    </div>
+</ng-template>

@@ -48,6 +48,10 @@
     font-weight: bold;
 }
 
+.mw-100px{
+    max-width: 100px;
+}
+
 .ts-12{
     font-size: 12px;
 }

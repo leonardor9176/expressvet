@@ -36,11 +36,10 @@ reservationsCtrl.createReservation = async (req, res) => {
                 status: 'reservada',
                 comments: [
                     {
-                        dateComent: Date.now(),
+                        dateComment: Date.now(),
                         comment: 'reserva exitosa'
                     }
                 ],
-                updatedAt: Date.now(),
             });
             await newReservation.save()
             const reservationAux = {
@@ -71,7 +70,7 @@ reservationsCtrl.createReservation = async (req, res) => {
 
 reservationsCtrl.getReservations = async (req, res) => {
     try {
-        const reservations = await Reservation.find()
+        const reservations = await Reservation.find().sort( { "reservationDate": 1 } )
         res.json({
             status: true,
             data: reservations
@@ -115,7 +114,7 @@ reservationsCtrl.getReservationByUuid = async (req, res) => {
 reservationsCtrl.cancelReservation = async (req, res) => {
     try {
         const { uuid, document, comment } = req.body
-        const reservation = await Reservation.findOneAndUpdate({ uuid: uuid, document: document }, { status: 'cancelada', $push: { comments: { dateComent: Date.now(), comment: `cita cancelada: ${comment}` } } })
+        const reservation = await Reservation.findOneAndUpdate({ uuid: uuid, document: document }, { status: 'cancelada', $push: { comments: { dateComment: Date.now(), comment: `cita cancelada: ${comment}` } } })
         if (reservation) {
             res.json({
                 status: true,
@@ -128,6 +127,25 @@ reservationsCtrl.cancelReservation = async (req, res) => {
                 validDocument: false
             })
         }
+    }
+    catch (error) {
+        res.json({
+            status: false,
+            error: error
+        })
+    }
+}
+
+reservationsCtrl.changeStatus = async (req, res) => {
+    try {
+        const { uuid, status } = req.body
+        let reservation = await Reservation.findOneAndUpdate({ uuid: uuid }, {status: status, $push: { comments: { dateComment: Date.now(), comment: `cita ${status}` } } })
+        reservation = await Reservation.findOne({ uuid: uuid })
+
+        res.json({
+            status: true,
+            data: [reservation]
+        })
     }
     catch (error) {
         res.json({

@@ -8,6 +8,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import 'moment/locale/es';
 
+import {MatTableModule} from '@angular/material/table';
+
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
@@ -21,6 +23,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { AdminReservationsComponent } from './pages/admin-reservations/admin-reservations.component';
+import { ReservationCardComponent } from './components/reservation-card/reservation-card.component';
 
 @NgModule({
   declarations: [
@@ -28,10 +33,13 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     ReservationComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    AdminReservationsComponent,
+    ReservationCardComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
@@ -42,7 +50,8 @@ import { HttpClientModule } from '@angular/common/http';
     NgxMatTimepickerModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es'},

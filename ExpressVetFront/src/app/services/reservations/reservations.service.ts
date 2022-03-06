@@ -28,6 +28,11 @@ export class ReservationsService {
     return this.http.get(`${this.URL_API}/api/reservations/search?uuid=${uuid}`)
   }
 
+  changeReservationStatus(token: any, body: any) {
+    const headers = { authorization: `JWT ${token}`}
+    return this.http.put(`${this.URL_API}/api/reservations/change-status`, body, {headers: headers})
+  }
+
   cancelReservation(body: any) {
     return this.http.put(`${this.URL_API}/api/reservations/cancel`, body)
   }

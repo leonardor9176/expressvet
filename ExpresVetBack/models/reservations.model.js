@@ -10,12 +10,11 @@ var ReservationSchema = new mongoose.Schema
         status: { type: String },
         comments: [
             {
-                dateComent: Date,
+                dateComment: Date,
                 comment: String
             }
         ],
-        createdAt: { type: Date, default: Date.now() },
-        updatedAt: { type: Date }
+        createdAt: { type: Date, default: Date.now() }
     })
 
 module.exports = mongoose.model('reservations', ReservationSchema)
